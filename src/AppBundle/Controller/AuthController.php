@@ -43,10 +43,10 @@ class AuthController extends Controller
             'code' => $code
         );
 
-        $response = $client->request('POST', $path, [
+        $response = $client->request('POST', $path, array(
             'form_params' => $params,
-            'headers' => ['Accept' => 'application/json']
-        ]);
+            'headers' => array('Accept' => 'application/json')
+        ));
 
         $contents = $response->getBody()->getContents();
         $data = json_decode($contents);
