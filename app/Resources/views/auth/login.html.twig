@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+<body>
+<p>
+    Giriş
+</p>
+<p>
+    {% for flash_message in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flash_message }}
+    </div>
+    {% endfor %}
+</p>
+<p>
+    <a href="https://github.com/login/oauth/authorize?scope=user:email,repo&client_id={{ github_client_id }}">Github ile Giriş yap</a>
+</p>
+</body>
+</html>
