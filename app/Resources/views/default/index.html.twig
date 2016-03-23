@@ -41,11 +41,18 @@
                     </a>
                 </p>
             </div>
-            <div id="next">
-                <h2>Giriş</h2>
-                <a href="{{ path('login') }}">Giriş</a>
-            </div>
-
+            {% if app.session.get('github_access_token') %}
+                <div id="next">
+                    <h2>Github Yönetim</h2>
+                    <a href="{{ path('github_repos') }}">Repo Listesi</a>
+                    <a href="{{ path('github_repo_search') }}">Repolarda Arama</a>
+                </div>
+            {% else %}
+                <div id="next">
+                    <h2>Giriş</h2>
+                    <a href="{{ path('login') }}">Giriş</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

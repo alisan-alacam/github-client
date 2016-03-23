@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Repolarda Arama</title>
+</head>
+<body>
+<p>Repolarda Arama</p>
+<p>
+    <form action="" method="post">
+        <input type="text" name="search_text" {% if search_text is defined %}value="{{ search_text }}"{% endif %}
+               placeholder="Aranacak kelimeyi giriniz." />
+        <button type="submit">Ara</button>
+    </form>
+</p>
+
+{% if total_count is defined %}
+    <h2>Sonuçlar (Toplam {{ total_count }} adet sonuç bulundu)</h2>
+    {% if total_count > 0 %}
+        {% for item in items %}
+            <p>
+                Dosya adı: {{ item.name }} <br>
+                Dosya yolu: {{ item.path }} <br>
+                <a href="{{ item.html_url }}" target="_blank">Sayfa git</a>
+            </p>
+            <hr>
+        {% endfor %}
+    {% endif %}
+{% endif %}
+</body>
+</html>
