@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Github Repo Listeleme</title>
+</head>
+<body>
+<p>
+    Github Repo Listeleme
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Repo adı</th>
+            <th>Repo tam adı</th>
+            <th>Açıklama</th>
+            <th>Url</th>
+            <th>Html Url</th>
+            <th>Public / Private</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for repo in repos %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ repo.name }}</td>
+            <td>{{ repo.full_name }}</td>
+            <td>{{ repo.description }}</td>
+            <td>{{ repo.url }}</td>
+            <td>{{ repo.html_url }}</td>
+            <td>
+                {% if repo.private == false %}
+                    Private
+                {% else %}
+                    Public
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
