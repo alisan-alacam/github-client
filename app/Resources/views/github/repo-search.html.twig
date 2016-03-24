@@ -7,11 +7,9 @@
 <body>
 <p>Repolarda Arama</p>
 <p>
-    <form action="" method="post">
-        <input type="text" name="search_text" {% if search_text is defined %}value="{{ search_text }}"{% endif %}
-               placeholder="Aranacak kelimeyi giriniz." />
-        <button type="submit">Ara</button>
-    </form>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 </p>
 
 {% if total_count is defined %}
