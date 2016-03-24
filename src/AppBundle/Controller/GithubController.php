@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use GuzzleHttp\Client;
 
@@ -53,7 +55,9 @@ class GithubController extends Controller
         $contents = $response->getBody()->getContents();
         $data = json_decode($contents);
 
-        return $this->render('github/repo-list.html.twig', array('repos' => $data));
+        return $this->render('github/repo-list.html.twig', array(
+            'repos' => $data
+        ));
     }
 
     /**
@@ -69,8 +73,14 @@ class GithubController extends Controller
         $gitHubSearchPath  = 'https://api.github.com/search/code';
         $gitHubUserPath    = 'https://api.github.com/user';
         $responseData      = array();
+        $form = $this->createFormBuilder()
+            ->add('search_text', TextType::class, array('required' => true))
+            ->add('search', SubmitType::class, array('label' => 'Ara'))
+            ->getForm();
 
-        if ($request->isMethod('POST')) {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $githubAccessToken = $session->get('github_access_token');
 
@@ -141,6 +151,7 @@ class GithubController extends Controller
             $responseData['items'] = $data->items;
             $responseData['search_text'] = $request->request->get('search_text');
         }
+        $responseData['form'] = $form->createView();
 
         return $this->render('github/repo-search.html.twig', $responseData);
     }
